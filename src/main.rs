@@ -1,9 +1,8 @@
-use conway_rs::conway::{ConwayGrid, Cell};
+use conway_rs::conway::ConwayGrid;
+use std::path::Path;
 
 fn main() {
-    let mut grid = ConwayGrid::new(10, 10, Cell::Dead);
-    grid.set((1, 2), Cell::Alive).unwrap();
-    grid.set((3, 6), Cell::Alive).unwrap();
-    grid.set((8, 2), Cell::Alive).unwrap();
-    print!("{}", grid);
+    let path = Path::new("./seeds/tryout.txt");
+    let grid = ConwayGrid::from_file(path);
+    println!("{:?}", grid);
 }

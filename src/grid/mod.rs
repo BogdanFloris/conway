@@ -2,7 +2,6 @@
 //! which uses a one-dimensional vector to represent the data
 //! in order to be more efficient.
 
-
 /// Represents a two dimensional coordinate.
 pub type Coord = (usize, usize);
 
@@ -16,14 +15,17 @@ pub enum GridError {
 ///
 /// Uses a one-dimensional vector to hold the data,
 /// in order to be more performant.
-#[derive(Clone, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+#[derive(Clone, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
 pub struct Grid<T> {
     width: usize,
     height: usize,
     data: Vec<T>,
 }
 
-impl<T> Grid<T> where T: Copy {
+impl<T> Grid<T>
+where
+    T: Copy,
+{
     /// Creates a new Grid<T> of size (width, height)
     /// with a default value for T.
     pub fn new(width: usize, height: usize, default: T) -> Self {
@@ -73,6 +75,11 @@ impl<T> Grid<T> {
         self.height
     }
 
+    /// Get the grid data.
+    pub fn data(&self) -> &Vec<T> {
+        &self.data
+    }
+
     /// Determines if the given coordinate is valid in the grid.
     pub fn is_valid_coord(&self, (col, row): Coord) -> bool {
         col < self.width && row < self.height
@@ -83,7 +90,7 @@ impl<T> Grid<T> {
             Ok(val) => {
                 *val = new;
                 Ok(())
-            },
+            }
             Err(err) => Err(err),
         }
     }
@@ -126,7 +133,7 @@ mod tests {
                     Ok(val) => assert_eq!(*val, 1),
                     Err(_) => panic!(),
                 };
-            },
+            }
             Err(_) => panic!(),
         };
     }
