@@ -48,12 +48,17 @@ impl<T> Grid<T> {
         self.width * self.height
     }
 
-    /// Get an immutable reference to a grid cell.
-    pub fn get(&self, coord: Coord) -> Result<&T, GridError> {
-        match self.data.get(self.flatten(coord)) {
+    /// Get an immutable reference to a grid cell using an index
+    pub fn get_using_index(&self, index: usize) -> Result<&T, GridError> {
+        match self.data.get(index) {
             Some(val) => Ok(val),
             None => Err(GridError::IndexOutOfBounds),
         }
+    }
+
+    /// Get an immutable reference to a grid cell using a coordinate
+    pub fn get(&self, coord: Coord) -> Result<&T, GridError> {
+        self.get_using_index(self.flatten(coord))
     }
 
     /// Get a mutable reference to a grid cell.
@@ -106,7 +111,7 @@ mod tests {
         assert_eq!(grid.width(), 1);
         assert_eq!(grid.height(), 1);
         assert!(grid.get((0, 0)).is_ok());
-        assert!(grid.get((0, 1)).is_err());
+        assert!(grid.get((1, 0)).is_err());
         match grid.get((0, 0)) {
             Ok(val) => assert_eq!(*val, 0),
             Err(_) => panic!(),
@@ -117,7 +122,7 @@ mod tests {
     fn test_is_valid_coord() {
         let grid = Grid::new(1, 1, 0);
         assert!(grid.is_valid_coord((0, 0)));
-        assert!(!grid.is_valid_coord((0, 1)));
+        assert!(!grid.is_valid_coord((1, 0)));
     }
 
     #[test]
