@@ -1,7 +1,13 @@
+//! Minimal implementation of a two dimensional grid,
+//! which uses a one-dimensional vector to represent the data
+//! in order to be more efficient.
+
+
 /// Represents a two dimensional coordinate.
 pub type Coord = (usize, usize);
 
 /// Enum used to represent different grid errors.
+#[derive(Debug)]
 pub enum GridError {
     IndexOutOfBounds,
 }
@@ -33,6 +39,11 @@ impl<T> Grid<T> {
     /// Two dimensional coordinate to one dimensional index.
     fn flatten(&self, (col, row): Coord) -> usize {
         col + self.width * row
+    }
+
+    /// Get the area of the grid
+    pub fn area(&self) -> usize {
+        self.width * self.height
     }
 
     /// Get an immutable reference to a grid cell.

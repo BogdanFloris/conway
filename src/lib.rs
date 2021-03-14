@@ -1,2 +1,2 @@
-mod conway;
+pub mod conway;
 mod grid;
