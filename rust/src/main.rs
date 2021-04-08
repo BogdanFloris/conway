@@ -4,7 +4,7 @@ use std::path::Path;
 use std::{thread, time};
 
 fn main() {
-    let path = Path::new("./seeds/spaceship.txt");
+    let path = Path::new("../seeds/spaceship.txt");
     let mut grid = ConwayGrid::from_file(path);
     print!("{esc}[2J{esc}[1;1H", esc = 27 as char);
     loop {
