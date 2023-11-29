@@ -1,2 +1,1 @@
-const std = @import("std");
-const game = @import("game.zig");
+const conway = @import("conway.zig");
