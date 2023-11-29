@@ -7,6 +7,6 @@ pub fn main() !void {
     var arena = std.heap.ArenaAllocator.init(std.heap.page_allocator);
     defer arena.deinit();
 
-    const game = try conway.Game.init(filepath, arena.allocator());
-    try game.play();
+    var game = try conway.Game.init(filepath, arena.allocator());
+    try game.loop();
 }
